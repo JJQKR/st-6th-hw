@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import List from "./components/List";
 
-// TODO: 콘솔창을 확인해보고 input 타이핑할 때 마다~~~~~~~~~`
-//       List 컴포넌트가 불필요하게 리렌더링되지 않게 memo 사용해서 해결해 보세요.
+// TODO: 콘솔창을 확인해보고 input 타이핑할 때 마다
+//       List 컴포넌트가 불필요하게 리렌더링되지 않게 useMemo 사용해서 해결해 보세요.
 
 const App = () => {
   const [input, setInput] = useState("");
@@ -17,12 +17,20 @@ const App = () => {
     setInput("");
   };
 
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => item.toLocaleLowerCase().includes("item"));
+  }, [items]);
+
+  //useMemo 안에 콜백으로 함수를 담기 때문에
+  // callback함수인 것을 나타내기 위해 () => 형식으로 넣기
+  // return 키워드를 빼먹지 않게 주의
+
   return (
     <div>
       <h1>Item List</h1>
       <input type="text" value={input} onChange={handleInputChange} />
       <button onClick={addItem}>Add Item</button>
-      <List items={items} />
+      <List items={filteredItems} />
     </div>
   );
 };
