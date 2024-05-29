@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import List from "./components/List";
 
 // TODO: 콘솔창을 확인해보고 input 타이핑할 때 마다
@@ -21,7 +21,7 @@ const App = () => {
     return items.filter((item) => item.toLocaleLowerCase().includes("item"));
   }, [items]);
 
-  //useMemo 안에 콜백으로 함수를 담기 때문에
+  // useMemo 안에 콜백으로 함수를 담기 때문에
   // callback함수인 것을 나타내기 위해 () => 형식으로 넣기
   // return 키워드를 빼먹지 않게 주의
 
